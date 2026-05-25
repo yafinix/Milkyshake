@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milkypop – Milkshake Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* ── VARIABLES ── */
+  :root {
+    --black:   #1A0A00;
+    --white:   #FFF8EE;
+    --cream:   #F5E6C8;
+    --yellow:  #FFD54F;
+    --brown:   #5C2E00;
+    --orange:  #FF6B35;
+    --green:   #A8E063;
+    --pink:    #FF9EC4;
+    --border:  3px solid var(--black);
+    --shadow:  5px 5px 0 var(--black);
+    --shadow-lg: 8px 8px 0 var(--black);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Space Mono', monospace;
+    background: var(--white);
+    color: var(--black);
+    overflow-x: hidden;
+  }
+
+  /* noise overlay */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.45;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: sticky; top: 0; z-index: 200;
+    background: var(--yellow);
+    border-bottom: var(--border);
+    padding: 14px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .nav-logo-img {
+    height: 52px; width: 52px;
+    border-radius: 50%;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    object-fit: cover;
+    background: var(--cream);
+  }
+
+  .nav-brand {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 900;
+    font-size: 1.15rem;
+    letter-spacing: -1px;
+    margin-left: 12px;
+  }
+
+  .nav-left { display: flex; align-items: center; }
+
+  .nav-links {
+    display: flex; gap: 8px; list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: var(--black);
+    padding: 8px 16px;
+    border: var(--border);
+    background: var(--white);
+    box-shadow: var(--shadow);
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+  }
+
+  .nav-links a:hover {
+    background: var(--black);
+    color: var(--yellow);
+    transform: translate(-2px,-2px);
+    box-shadow: 7px 7px 0 var(--brown);
+  }
+
+  .nav-links a.active-cta {
+    background: var(--orange);
+    color: var(--white);
+  }
+
+  /* ── PROMO TICKER ── */
+  .ticker-wrap {
+    overflow: hidden;
+    background: var(--orange);
+    border-bottom: var(--border);
+    padding: 10px 0;
+  }
+
+  .ticker-inner {
+    display: flex; white-space: nowrap;
+    animation: ticker 22s linear infinite;
+  }
+
+  .ticker-item {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    color: var(--white);
+    padding: 0 36px;
+    letter-spacing: 2px;
+  }
+
+  .ticker-item .sep { color: var(--yellow); margin: 0 8px; }
+
+  @keyframes ticker { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: var(--border);
+    min-height: 88vh;
+  }
+
+  .hero-left {
+    padding: 72px 56px;
+    display: flex; flex-direction: column; justify-content: center; gap: 24px;
+    border-right: var(--border);
+    background: var(--cream);
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    background: var(--orange);
+    color: var(--white);
+    padding: 6px 14px;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    width: fit-content;
+  }
+
+  .hero-left h1 {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.6rem, 4.5vw, 4.8rem);
+    line-height: 1.0;
+    letter-spacing: -3px;
+  }
+
+  .hero-left h1 .accent { color: var(--orange); }
+
+  .hero-tagline {
+    font-size: 0.85rem;
+    line-height: 1.9;
+    opacity: 0.7;
+    max-width: 400px;
+  }
+
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .btn {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 14px 28px;
+    border: var(--border);
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .btn-primary {
+    background: var(--black);
+    color: var(--yellow);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .btn-primary:hover {
+    transform: translate(-3px,-3px);
+    box-shadow: 11px 11px 0 var(--brown);
+  }
+
+  .btn-secondary {
+    background: var(--white);
+    color: var(--black);
+    box-shadow: var(--shadow);
+  }
+
+  .btn-secondary:hover {
+    background: var(--green);
+    transform: translate(-3px,-3px);
+    box-shadow: 8px 8px 0 var(--black);
+  }
+
+  .hero-right {
+    background: var(--brown);
+    display: flex; align-items: center; justify-content: center;
+    padding: 60px;
+    position: relative; overflow: hidden;
+  }
+
+  .hero-logo-card {
+    background: var(--cream);
+    border: var(--border);
+    box-shadow: var(--shadow-lg);
+    padding: 28px;
+    transform: rotate(-3deg);
+    transition: transform 0.35s;
+    width: 260px;
+    text-align: center;
+  }
+
+  .hero-logo-card:hover { transform: rotate(0deg) scale(1.04); }
+
+  .hero-logo-card img {
+    width: 200px; height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: var(--border);
+  }
+
+  .hero-logo-sub {
+    margin-top: 14px;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    opacity: 0.55;
+  }
+
+  .hero-deco {
+    position: absolute;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 12rem; font-weight: 900;
+    color: rgba(255,255,255,0.04);
+    bottom: -40px; right: -20px;
+    pointer-events: none; user-select: none;
+  }
+
+  /* ── SECTION UTILITIES ── */
+  .section-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-weight: 700;
+    opacity: 0.5;
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.7rem, 3vw, 2.6rem);
+    letter-spacing: -2px;
+    margin-bottom: 12px;
+  }
+
+  .section-sub {
+    font-size: 0.82rem;
+    line-height: 1.8;
+    opacity: 0.65;
+    max-width: 540px;
+    margin-bottom: 40px;
+  }
+
+  /* ── FILOSOFI ── */
+  .filosofi-section {
+    border-bottom: var(--border);
+    padding: 72px 56px;
+  }
+
+  .filosofi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: var(--border);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .filosof-card {
+    padding: 48px 40px;
+    border-right: var(--border);
+    transition: background 0.2s;
+  }
+
+  .filosof-card:last-child { border-right: none; }
+  .filosof-card:hover { background: var(--yellow); }
+
+  .filosof-icon {
+    font-size: 2.4rem;
+    margin-bottom: 16px;
+  }
+
+  .filosof-card h3 {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+
+  .filosof-card p {
+    font-size: 0.8rem;
+    line-height: 1.85;
+    opacity: 0.7;
+    margin-bottom: 10px;
+  }
+
+  .tagline-pill {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    font-style: italic;
+    background: var(--black);
+    color: var(--yellow);
+    padding: 6px 14px;
+    border: var(--border);
+    box-shadow: 3px 3px 0 var(--brown);
+  }
+
+  /* ── MENU SECTION ── */
+  .menu-section {
+    padding: 72px 56px;
+    border-bottom: var(--border);
+    background: var(--cream);
+  }
+
+  .menu-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 40px;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    width: fit-content;
+  }
+
+  .menu-tab {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 12px 28px;
+    border: none;
+    border-right: var(--border);
+    background: var(--white);
+    color: var(--black);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .menu-tab:last-child { border-right: none; }
+  .menu-tab.active { background: var(--black); color: var(--yellow); }
+  .menu-tab:hover:not(.active) { background: var(--yellow); }
+
+  /* ── MENU GRID (PRODUCT CARDS) ── */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0;
+    border: var(--border);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .menu-card {
+    border-right: var(--border);
+    border-bottom: var(--border);
+    position: relative;
+    background: var(--white);
+    transition: background 0.2s, transform 0.15s;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  /* 2-col layout: last 2 cards no bottom border for clean grid */
+  .menu-card:nth-child(3),
+  .menu-card:nth-child(4) { border-bottom: none; }
+
+  .menu-card:nth-child(2n) { border-right: none; }
+
+  .menu-card:hover {
+    background: var(--yellow);
+    transform: translate(-3px,-3px);
+    box-shadow: var(--shadow-lg);
+    z-index: 2;
+  }
+
+  /* PRODUCT IMAGE SLOT */
+  .menu-card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: var(--border);
+    display: block;
+    background: var(--cream);
+  }
+
+  /* placeholder shown when no real image */
+  .menu-card-img-placeholder {
+    width: 100%;
+    height: 180px;
+    border-bottom: var(--border);
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.45;
+  }
+
+  .menu-card-img-placeholder .ph-icon { font-size: 2.8rem; }
+
+  .menu-card-body { padding: 22px 20px 24px; }
+
+  .best-badge {
+    position: absolute;
+    top: 12px; left: -2px;
+    background: var(--orange);
+    color: var(--white);
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 5px 12px;
+    border: var(--border);
+    box-shadow: 3px 3px 0 var(--black);
+  }
+
+  .menu-card h4 {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+  }
+
+  .size-tag {
+    display: inline-block;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: var(--cream);
+    border: 2px solid var(--black);
+    padding: 3px 10px;
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  .price {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 900;
+    font-size: 1.2rem;
+    letter-spacing: -1px;
+  }
+
+  /* ── TOPPING TABLE ── */
+  .topping-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border: var(--border);
+    margin-bottom: -3px;
+    background: var(--white);
+    box-shadow: var(--shadow);
+    transition: background 0.15s;
+  }
+
+  .topping-row:hover { background: var(--yellow); }
+
+  .topping-row-left {
+    display: flex; align-items: center; gap: 12px;
+    font-weight: 700; font-size: 0.85rem;
+  }
+
+  .topping-price {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--orange);
+  }
+
+  /* ── PROMO ── */
+  .promo-section {
+    padding: 72px 56px;
+    border-bottom: var(--border);
+  }
+
+  .promo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border: var(--border);
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 32px;
+  }
+
+  .promo-card {
+    padding: 40px 36px;
+    border-right: var(--border);
+    border-bottom: var(--border);
+    transition: background 0.2s;
+  }
+
+  .promo-card:nth-child(2n) { border-right: none; }
+  .promo-card:nth-child(3),
+  .promo-card:nth-child(4) { border-bottom: none; }
+  .promo-card:hover { background: var(--green); }
+
+  .promo-card-icon { font-size: 2.2rem; margin-bottom: 14px; }
+
+  .promo-card h4 {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+
+  .promo-card p { font-size: 0.8rem; line-height: 1.8; opacity: 0.7; }
+
+  .promo-highlight {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--black);
+    color: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow-lg);
+    padding: 28px 36px;
+  }
+
+  .promo-highlight-icon { font-size: 2rem; }
+
+  .promo-highlight h3 {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+  }
+
+  .promo-highlight p { font-size: 0.82rem; opacity: 0.7; }
+  .promo-highlight strong { color: var(--yellow); }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    padding: 72px 56px;
+    border-bottom: var(--border);
+    background: var(--cream);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: var(--border);
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 32px;
+  }
+
+  .contact-card {
+    padding: 48px 40px;
+    border-right: var(--border);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+
+  .contact-card:last-child { border-right: none; }
+
+  .contact-avatar {
+    width: 64px; height: 64px;
+    background: var(--yellow);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 900;
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+  }
+
+  .contact-card h4 {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -0.5px;
+  }
+
+  .contact-role {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    opacity: 0.5;
+  }
+
+  .contact-phone { font-size: 0.82rem; opacity: 0.65; }
+
+  .wa-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #25D366;
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 12px 20px;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    width: fit-content;
+    margin-top: 4px;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .wa-btn:hover {
+    transform: translate(-2px,-2px);
+    box-shadow: 7px 7px 0 var(--black);
+  }
+
+  .wa-icon { width: 18px; height: 18px; fill: white; }
+
+  .hours-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--black);
+    color: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow-lg);
+    padding: 24px 36px;
+  }
+
+  .hours-bar-text h4 {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+  }
+
+  .hours-bar-text p { font-size: 0.8rem; opacity: 0.65; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    color: var(--white);
+    border-top: var(--border);
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    border-bottom: 3px solid #2a1500;
+  }
+
+  .footer-col {
+    padding: 52px 44px;
+    border-right: 3px solid #2a1500;
+  }
+
+  .footer-col:last-child { border-right: none; }
+
+  .footer-logo-img {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    border: var(--border);
+    object-fit: cover;
+    margin-bottom: 16px;
+  }
+
+  .footer-brand {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 900;
+    font-size: 1.4rem;
+    letter-spacing: -1px;
+    margin-bottom: 10px;
+  }
+
+  .footer-brand span { color: var(--yellow); }
+
+  .footer-tagline {
+    font-size: 0.78rem;
+    opacity: 0.45;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .footer-social {
+    display: flex; gap: 8px;
+  }
+
+  .footer-social a {
+    display: flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px;
+    background: var(--yellow);
+    color: var(--black);
+    border: var(--border);
+    box-shadow: 3px 3px 0 #444;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.15s, background 0.15s;
+  }
+
+  .footer-social a:hover {
+    background: var(--orange);
+    color: var(--white);
+    transform: translate(-2px,-2px);
+  }
+
+  .footer-col-title {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--yellow);
+    margin-bottom: 20px;
+  }
+
+  .footer-nav-links {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+
+  .footer-nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.82rem;
+    opacity: 0.6;
+    transition: opacity 0.15s, color 0.15s;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .footer-nav-links a::before {
+    content: '→';
+    color: var(--yellow);
+    font-size: 0.7rem;
+  }
+
+  .footer-nav-links a:hover { opacity: 1; color: var(--yellow); }
+
+  .footer-info {
+    display: flex; flex-direction: column; gap: 12px;
+  }
+
+  .footer-info-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 0.78rem;
+    opacity: 0.6;
+    line-height: 1.6;
+  }
+
+  .footer-info-item .icon { font-size: 0.9rem; flex-shrink: 0; margin-top: 1px; }
+
+  .footer-bottom {
+    padding: 20px 44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy { font-size: 0.68rem; opacity: 0.3; }
+
+  .footer-made {
+    font-size: 0.65rem;
+    opacity: 0.3;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  /* ── REVEAL ANIMATION ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── HERO ANIMATION ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left > * { animation: fadeUp 0.6s ease both; }
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.25s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.4s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.55s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    nav { padding: 12px 20px; }
+    .nav-links { display: none; }
+
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 48px 24px; border-right: none; border-bottom: var(--border); }
+    .hero-right { min-height: 300px; padding: 40px 24px; }
+
+    .filosofi-section, .menu-section, .promo-section, .contact-section { padding: 52px 24px; }
+
+    .filosofi-grid { grid-template-columns: 1fr; }
+    .filosof-card { border-right: none; border-bottom: var(--border); }
+    .filosof-card:last-child { border-bottom: none; }
+
+    .menu-grid { grid-template-columns: 1fr 1fr; }
+    .menu-card:nth-child(3),
+    .menu-card:nth-child(4) { border-bottom: none; }
+
+    .promo-grid { grid-template-columns: 1fr; }
+    .promo-card { border-right: none; border-bottom: var(--border) !important; }
+    .promo-card:last-child { border-bottom: none !important; }
+
+    .contact-grid { grid-template-columns: 1fr; }
+    .contact-card { border-right: none; border-bottom: var(--border); }
+    .contact-card:last-child { border-bottom: none; }
+
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-col { border-right: none; border-bottom: 3px solid #2a1500; padding: 36px 24px; }
+    .footer-col:last-child { border-bottom: none; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; padding: 20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav>
+  <div class="nav-left">
+    <img src="img/logo-milshake.jpg" alt="Milkypop Logo" class="nav-logo-img" />
+    <span class="nav-brand">milky<span style="color:var(--orange)">pop</span></span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#filosofi">Filosofi</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#promo">Promo</a></li>
+    <li><a href="#order" class="active-cta">Pesan →</a></li>
+  </ul>
+</nav>
+
+<!-- ── PROMO TICKER ── -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-item">🎉 Grand Opening <span class="sep">✦</span></span>
+    <span class="ticker-item">Buy 2 Get 1 Gratis <span class="sep">✦</span></span>
+    <span class="ticker-item">Berlaku Minggu Pertama <span class="sep">✦</span></span>
+    <span class="ticker-item">Upload Story = Diskon Spesial <span class="sep">✦</span></span>
+    <span class="ticker-item">Buka 10.00 – 19.00 <span class="sep">✦</span></span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item">🎉 Grand Opening <span class="sep">✦</span></span>
+    <span class="ticker-item">Buy 2 Get 1 Gratis <span class="sep">✦</span></span>
+    <span class="ticker-item">Berlaku Minggu Pertama <span class="sep">✦</span></span>
+    <span class="ticker-item">Upload Story = Diskon Spesial <span class="sep">✦</span></span>
+    <span class="ticker-item">Buka 10.00 – 19.00 <span class="sep">✦</span></span>
+  </div>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero">
+  <div class="hero-left">
+    <div class="hero-badge">✦ Grand Opening — 2026</div>
+    <h1>Rasa yang<br/><span class="accent">Tak Terlupakan.</span></h1>
+    <p class="hero-tagline">
+      Milkshake premium, harga bersahabat.<br/>
+      Setiap tegukan penuh rasa manis dan cerita.
+    </p>
+    <div class="hero-cta">
+      <a href="#menu" class="btn btn-primary">Lihat Menu →</a>
+      <a href="#order" class="btn btn-secondary">Pesan Sekarang</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-deco">✦</div>
+    <div class="hero-logo-card">
+      <img src="img/logo-milshake.jpg" alt="Milkypop" />
+      <div class="hero-logo-sub">// milkshake premium</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FILOSOFI ── -->
+<section class="filosofi-section" id="filosofi">
+  <p class="section-label reveal">// filosofi minuman</p>
+  <h2 class="section-title reveal">Di Balik Setiap Tegukan</h2>
+  <p class="section-sub reveal">Setiap minuman kami lahir dari cerita dan perasaan yang ingin kami bagi bersamamu.</p>
+
+  <div class="filosofi-grid">
+    <div class="filosof-card reveal">
+      <div class="filosof-icon">🍪</div>
+      <h3>Cookies & Cream</h3>
+      <p>Minuman ini melambangkan perpaduan antara manisnya kebahagiaan dan renyahnya kenangan masa kecil. Rasa creamy yang lembut dipadukan dengan crumble cookies menciptakan sensasi nyaman dan menyenangkan di setiap tegukan.</p>
+      <p>Cocok untuk menemani waktu santai, berkumpul bersama teman, maupun menjadi mood booster di tengah aktivitas.</p>
+      <span class="tagline-pill">"Setiap tegukan penuh rasa manis dan cerita."</span>
+    </div>
+    <div class="filosof-card reveal">
+      <div class="filosof-icon">🤍</div>
+      <h3>Vanilla Milkshake</h3>
+      <p>Vanilla melambangkan kesederhanaan yang elegan. Rasanya lembut, harum, dan menenangkan — menggambarkan ketulusan serta kenyamanan dalam bentuk minuman.</p>
+      <p>Vanilla cocok dinikmati kapan saja karena memberikan rasa manis yang ringan namun tetap berkesan.</p>
+      <span class="tagline-pill">"Kesederhanaan yang selalu meninggalkan kesan."</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── MENU ── -->
+<section class="menu-section" id="menu">
+  <p class="section-label reveal">// menu harga</p>
+  <h2 class="section-title reveal">Pilihan Milkshake Kami</h2>
+  <p class="section-sub reveal">Nikmati milkshake premium dengan harga yang ramah di kantong. Semua dibuat dengan cinta.</p>
+
+  <div class="menu-tabs">
+    <button class="menu-tab active" onclick="showMenu('milkshake', this)">Milkshake</button>
+    <button class="menu-tab" onclick="showMenu('topping', this)">Extra Topping</button>
+  </div>
+
+  <!-- MILKSHAKE CARDS -->
+  <div id="milkshake-menu">
+    <div class="menu-grid">
+
+      <!-- CARD 1 — ganti src="..." dengan path foto produk lo -->
+      <div class="menu-card reveal">
+        <span class="best-badge">★ Best Seller</span>
+        <!--
+          CARA GANTI GAMBAR:
+          Hapus tag <div class="menu-card-img-placeholder"> di bawah ini
+          dan ganti dengan: <img src="NAMA_FILE_FOTO.jpg" alt="Cookies & Cream Regular" class="menu-card-img">
+        -->
+        <div class="menu-card-img-placeholder">
+          <span class="ph-icon">🍪</span>
+          <span>ganti gambar di sini</span>
+        </div>
+        <div class="menu-card-body">
+          <h4>Cookies & Cream</h4>
+          <div class="size-tag">Regular</div>
+          <div class="price">Rp 12.000</div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="menu-card reveal">
+        <div class="menu-card-img-placeholder">
+          <span class="ph-icon">🍪</span>
+          <span>ganti gambar di sini</span>
+        </div>
+        <div class="menu-card-body">
+          <h4>Cookies & Cream</h4>
+          <div class="size-tag">Large</div>
+          <div class="price">Rp 15.000</div>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="menu-card reveal">
+        <div class="menu-card-img-placeholder">
+          <span class="ph-icon">🤍</span>
+          <span>ganti gambar di sini</span>
+        </div>
+        <div class="menu-card-body">
+          <h4>Vanilla Milkshake</h4>
+          <div class="size-tag">Regular</div>
+          <div class="price">Rp 10.000</div>
+        </div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="menu-card reveal">
+        <div class="menu-card-img-placeholder">
+          <span class="ph-icon">🤍</span>
+          <span>ganti gambar di sini</span>
+        </div>
+        <div class="menu-card-body">
+          <h4>Vanilla Milkshake</h4>
+          <div class="size-tag">Large</div>
+          <div class="price">Rp 13.000</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOPPING -->
+  <div id="topping-menu" style="display:none;">
+    <div style="max-width:480px; box-shadow: var(--shadow-lg);">
+      <div class="topping-row reveal">
+        <div class="topping-row-left"><span>🖤</span><strong>Oreo</strong></div>
+        <div class="topping-price">+ Rp 3.000</div>
+      </div>
+      <div class="topping-row reveal">
+        <div class="topping-row-left"><span>🍦</span><strong>Es Cream</strong></div>
+        <div class="topping-price">+ Rp 4.000</div>
+      </div>
+    </div>
+    <p style="margin-top:16px; font-size:0.78rem; opacity:0.55; font-style:italic;">
+      Tambahkan topping favoritmu untuk pengalaman milkshake yang lebih istimewa!
+    </p>
+  </div>
+</section>
+
+<!-- ── PROMO ── -->
+<section class="promo-section" id="promo">
+  <p class="section-label reveal">// penawaran spesial</p>
+  <h2 class="section-title reveal">Promo Milkypop</h2>
+  <p class="section-sub reveal">Jangan lewatkan promo grand opening kami yang sayang untuk dilewatkan!</p>
+
+  <div class="promo-grid">
+    <div class="promo-card reveal">
+      <div class="promo-card-icon">📣</div>
+      <h4>Grand Opening</h4>
+      <p>Rayakan pembukaan perdana Milkypop bersama kami dengan penawaran yang belum pernah ada sebelumnya!</p>
+    </div>
+    <div class="promo-card reveal">
+      <div class="promo-card-icon">🥤</div>
+      <h4>Buy 2 Get 1</h4>
+      <p>Beli 2 milkshake varian apapun, gratis 1! Berlaku untuk semua varian termasuk extra topping.</p>
+    </div>
+    <div class="promo-card reveal">
+      <div class="promo-card-icon">📅</div>
+      <h4>Minggu Pertama Only</h4>
+      <p>Promo ini hanya berlaku di minggu pertama opening — jadi jangan sampai kehabisan!</p>
+    </div>
+    <div class="promo-card reveal">
+      <div class="promo-card-icon">📱</div>
+      <h4>Upload Story, Dapat Diskon!</h4>
+      <p>Upload story di Instagram & tag akun kami, langsung dapat potongan harga spesial!</p>
+    </div>
+  </div>
+
+  <div class="promo-highlight reveal">
+    <div class="promo-highlight-icon">⏰</div>
+    <div class="promo-highlight-text">
+      <h3>Jam Operasional</h3>
+      <p>Kami buka setiap hari pukul <strong>10.00 AM – 19.00 PM</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ── ORDER / CONTACT ── -->
+<section class="contact-section" id="order">
+  <p class="section-label reveal">// info pembelian</p>
+  <h2 class="section-title reveal">Mau Pesan? Hubungi Kami</h2>
+  <p class="section-sub reveal">Langsung hubungi salah satu dari kami melalui WhatsApp untuk pemesanan dan info lebih lanjut.</p>
+
+  <div class="contact-grid">
+    <div class="contact-card reveal">
+      <div class="contact-avatar">J</div>
+      <h4>Jihan</h4>
+      <p class="contact-role">Customer Service</p>
+      <p class="contact-phone">+62 857-7105-8589</p>
+      <a href="https://wa.me/6285771058589?text=Halo%20Jihan,%20saya%20mau%20pesan%20milkshake%20Milkypop!" class="wa-btn" target="_blank">
+        <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat WhatsApp
+      </a>
+    </div>
+
+    <div class="contact-card reveal">
+      <div class="contact-avatar">H</div>
+      <h4>Harry</h4>
+      <p class="contact-role">Customer Service</p>
+      <p class="contact-phone">+62 838-9634-5786</p>
+      <a href="https://wa.me/6283896345786?text=Halo%20Harry,%20saya%20mau%20pesan%20milkshake%20Milkypop!" class="wa-btn" target="_blank">
+        <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <div class="hours-bar reveal">
+    <span style="font-size:1.8rem;">⏰</span>
+    <div class="hours-bar-text">
+      <h4>Jam Pemesanan</h4>
+      <p>Senin – Minggu &nbsp;|&nbsp; 10.00 AM – 19.00 PM</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer id="footer">
+  <div class="footer-top">
+
+    <!-- Brand col -->
+    <div class="footer-col">
+      <img src="milkypop-logo.png" alt="Milkypop" class="footer-logo-img" />
+      <div class="footer-brand">milky<span>pop</span></div>
+      <p class="footer-tagline">Milkshake premium yang penuh rasa dan cerita. Dibuat dengan cinta, dinikmati bersama.</p>
+      <div class="footer-social">
+        <a href="#" title="Instagram">IG</a>
+        <a href="#" title="TikTok">TT</a>
+        <a href="#" title="WhatsApp">WA</a>
+      </div>
+    </div>
+
+    <!-- Nav col -->
+    <div class="footer-col">
+      <div class="footer-col-title">Navigasi</div>
+      <ul class="footer-nav-links">
+        <li><a href="#hero">Beranda</a></li>
+        <li><a href="#filosofi">Filosofi</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#promo">Promo</a></li>
+        <li><a href="#order">Pesan Sekarang</a></li>
+      </ul>
+    </div>
+
+    <!-- Info col -->
+    <div class="footer-col">
+      <div class="footer-col-title">Info</div>
+      <div class="footer-info">
+        <div class="footer-info-item">
+          <span class="icon">⏰</span>
+          <span>Senin – Minggu<br/>10.00 AM – 19.00 PM</span>
+        </div>
+        <div class="footer-info-item">
+          <span class="icon">📱</span>
+          <span>+62 857-7105-8589 (Jihan)<br/>+62 838-9634-5786 (Harry)</span>
+        </div>
+        <div class="footer-info-item">
+          <span class="icon">🎉</span>
+          <span>Grand Opening Promo<br/>Buy 2 Get 1 — Minggu Pertama!</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Milkypop. Semua hak dilindungi.</span>
+    <span class="footer-made">✦ Milkshake Premium Indonesia</span>
+  </div>
+</footer>
+
+<script>
+  function showMenu(type, btn) {
+    document.getElementById('milkshake-menu').style.display = type === 'milkshake' ? 'block' : 'none';
+    document.getElementById('topping-menu').style.display   = type === 'topping'    ? 'block' : 'none';
+    document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  const reveals  = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
